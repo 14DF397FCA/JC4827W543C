@@ -4,4 +4,8 @@
 
 #pragma once
 
-static void slider_event_cb(lv_event_t *e)
+#include <lvgl.h>
+
+lv_color_t getColorByValue(int32_t value);
+
+void slider_event_cb(lv_event_t *e);
