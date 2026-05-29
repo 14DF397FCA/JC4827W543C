@@ -6,6 +6,7 @@
 #include "callbacks.h"
 #include <lvgl.h>
 #include "ui/ui.h"
+#include "data.h"
 
 lv_color_t getColorByValue(int32_t value) {
     if (value < -20) {
@@ -44,10 +45,53 @@ void slider_event_cb(lv_event_t *e) {
     lv_label_set_text(ui_lblAirOut, buf);
     lv_label_set_text(ui_lblCoolantIn, buf);
     lv_label_set_text(ui_lblCoolantOut, buf);
-    
+
     lv_arc_set_value(ui_arcAirIn, value);
     lv_arc_set_value(ui_arcAirOut, value);
     lv_bar_set_value(ui_brCoolantIn, value, LV_ANIM_ON);
     lv_bar_set_value(ui_brCoolantOut, value, LV_ANIM_ON);
 }
 
+void ui_timer_cb(lv_timer_t *timer) {
+    updateAirIn(intercooler.airIn);
+    updateAirOut(intercooler.airOut);
+    updateCoolantIn(intercooler.coolantIn);
+    updateCoolantOut(intercooler.coolantOut);
+}
+
+void updateAirIn(int16_t value) {
+    char buf[32];
+    snprintf(buf, sizeof(buf), "%d", value);
+    lv_label_set_text(ui_lblAirIn, buf);
+    lv_color_t color = getColorByValue(value);
+    lv_obj_set_style_text_color(ui_lblAirIn, color, LV_PART_MAIN);
+
+    lv_arc_set_value(ui_arcAirIn, value);
+}
+
+void updateAirOut(int16_t value) {
+    char buf[32];
+    snprintf(buf, sizeof(buf), "%d", value);
+    lv_label_set_text(ui_lblAirOut, buf);
+    lv_color_t color = getColorByValue(value);
+    lv_obj_set_style_text_color(ui_lblAirOut, color, LV_PART_MAIN);
+    lv_arc_set_value(ui_arcAirOut, value);
+}
+
+void updateCoolantIn(int16_t value) {
+    char buf[32];
+    snprintf(buf, sizeof(buf), "%d", value);
+    lv_label_set_text(ui_lblCoolantIn, buf);
+    lv_color_t color = getColorByValue(value);
+    lv_obj_set_style_text_color(ui_lblCoolantIn, color, LV_PART_MAIN);
+    lv_bar_set_value(ui_brCoolantIn, value, LV_ANIM_ON);
+}
+
+void updateCoolantOut(int16_t value) {
+    char buf[32];
+    snprintf(buf, sizeof(buf), "%d", value);
+    lv_label_set_text(ui_lblCoolantOut, buf);
+    lv_color_t color = getColorByValue(value);
+    lv_obj_set_style_text_color(ui_lblCoolantOut, color, LV_PART_MAIN);
+    lv_bar_set_value(ui_brCoolantOut, value, LV_ANIM_ON);
+}

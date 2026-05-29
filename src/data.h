@@ -5,19 +5,19 @@
 
 #include <Arduino.h>
 typedef struct intercoolerTemp {
-    int8_t airIn;
-    int8_t airOut;
-    int8_t coolantIn;
-    int8_t coolantOut;
+    int16_t airIn;
+    int16_t airOut;
+    int16_t coolantIn;
+    int16_t coolantOut;
 } intercoolerTemp;
 
 extern intercoolerTemp intercooler;
 extern const bool verbose;
 
-extern int8_t oldAirIn;
-extern int8_t oldAirOut;
-extern int8_t oldCoolantIn;
-extern int8_t oldCoolantOut;
+extern int16_t oldAirIn;
+extern int16_t oldAirOut;
+extern int16_t oldCoolantIn;
+extern int16_t oldCoolantOut;
 
 // extern uint updateDisplayInterval;
 // extern uint clearDisplay;
