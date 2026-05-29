@@ -8,7 +8,7 @@
 #include "ui/ui.h"
 #include "data.h"
 
-lv_color_t getColorByValue(int32_t value) {
+lv_color_t getColorByValue(int16_t value) {
     if (value < -20) {
         return lv_color_hex(0x281C59);
     } else if (value < 0) {
