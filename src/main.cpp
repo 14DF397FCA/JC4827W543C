@@ -20,10 +20,10 @@ static lv_disp_drv_t disp_drv;
 static lv_indev_drv_t indev_drv;
 
 intercoolerTemp intercooler;
-const bool verbose = true;
+const bool verbose = false;
 
-uint16_t loopMax = 100;
-uint16_t loopId = 0;
+constexpr uint8_t updateInterval = 100;
+// static uint64_t lastUpdate = 0;
 
 void setup() {
     Serial.begin(115200);
@@ -56,25 +56,18 @@ void setup() {
 
     Serial.println("UI ready");
 
-    lv_timer_create(ui_timer_cb, 200, NULL);
+    lv_timer_create(ui_timer_cb, updateInterval, NULL);
 
-    // SetupEspNow();
+    SetupEspNow();
 }
 
 void loop() {
     lv_timer_handler();
     delay(5);
-    if (loopId >= loopMax) {
-        intercooler.airIn = random(-50, 150);
-        intercooler.airOut = random(-50, 150);
-        intercooler.coolantIn = random(-50, 150);
-        intercooler.coolantOut = random(-50, 150);
-
-        loopId = 0;
+    if (verbose) {
         Serial.printf("Air In: %d\n", intercooler.airIn);
         Serial.printf("Air Out: %d\n", intercooler.airOut);
         Serial.printf("Coolant In: %d\n", intercooler.coolantIn);
         Serial.printf("Coolant Out: %d\n", intercooler.coolantOut);
     }
-    loopId++;
 }
