@@ -23,7 +23,6 @@ intercoolerTemp intercooler;
 const bool verbose = false;
 
 constexpr uint8_t updateInterval = 100;
-// static uint64_t lastUpdate = 0;
 
 void setup() {
     Serial.begin(115200);
@@ -51,8 +50,6 @@ void setup() {
     lv_indev_drv_register(&indev_drv);
 
     ui_init();
-
-    lv_obj_add_event_cb(ui_Slider1, slider_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
 
     Serial.println("UI ready");
 
