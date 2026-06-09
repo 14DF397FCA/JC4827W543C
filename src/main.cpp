@@ -22,7 +22,7 @@ static lv_indev_drv_t indev_drv;
 
 IntercoolerTemp intercooler;
 LightSwitch lightSwitch;
-const bool verbose = true;
+const bool verbose = false;
 
 constexpr uint8_t updateInterval = 100;
 uint32_t lastUpdate = 0;
@@ -69,8 +69,11 @@ void loop() {
     lv_timer_handler();
 
     if (millis() - lastUpdate >= updateInterval) {
+        lightSwitch = getLightSwitch();
         if (lightSwitch.updated) {
-            Serial.println("Light Switch Updated");
+            if (verbose) {
+                Serial.println("Light Switch Updated");
+            }
             espSend(lightSwitch);
             lightSwitch.updated = false;
             lastUpdate = millis();

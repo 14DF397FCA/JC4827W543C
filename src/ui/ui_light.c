@@ -5,124 +5,134 @@
 
 #include "ui.h"
 
-lv_obj_t *ui_light = NULL;lv_obj_t *ui_topPanel2 = NULL;lv_obj_t *ui_btnScreen2 = NULL;lv_obj_t *ui_Label1 = NULL;lv_obj_t *ui_btnScreen4 = NULL;lv_obj_t *ui_Label3 = NULL;lv_obj_t *ui_swFrontLeft = NULL;lv_obj_t *ui_swFrontRight = NULL;lv_obj_t *ui_swHeadLeft = NULL;lv_obj_t *ui_swHeadRight = NULL;lv_obj_t *ui_swSyncOn = NULL;
+lv_obj_t *ui_light = NULL;
+lv_obj_t *ui_topPanel2 = NULL;
+lv_obj_t *ui_btnScreen2 = NULL;
+lv_obj_t *ui_Label1 = NULL;
+lv_obj_t *ui_btnScreen4 = NULL;
+lv_obj_t *ui_Label3 = NULL;
+lv_obj_t *ui_swFrontLeft = NULL;
+lv_obj_t *ui_swFrontRight = NULL;
+lv_obj_t *ui_swHeadLeft = NULL;
+lv_obj_t *ui_swHeadRight = NULL;
+lv_obj_t *ui_swSyncOn = NULL;
 // event funtions
-void ui_event_btnScreen2( lv_event_t * e) {
+void ui_event_btnScreen2(lv_event_t *e) {
     lv_event_code_t event_code = lv_event_get_code(e);
 
-if ( event_code == LV_EVENT_CLICKED) {
-      _ui_screen_change( &ui_intercoller, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_intercoller_screen_init);
-}
+    if (event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_intercoller, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_intercoller_screen_init);
+    }
 }
 
-void ui_event_btnScreen4( lv_event_t * e) {
+void ui_event_btnScreen4(lv_event_t *e) {
     lv_event_code_t event_code = lv_event_get_code(e);
 
-if ( event_code == LV_EVENT_CLICKED) {
-      _ui_screen_change( &ui_light, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_light_screen_init);
-}
+    if (event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_light, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_light_screen_init);
+    }
 }
 
 // build funtions
 
-void ui_light_screen_init(void)
-{
-ui_light = lv_obj_create(NULL);
-lv_obj_clear_flag( ui_light, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+void ui_light_screen_init(void) {
+    ui_light = lv_obj_create(NULL);
+    lv_obj_clear_flag(ui_light, LV_OBJ_FLAG_SCROLLABLE); /// Flags
 
-ui_topPanel2 = lv_obj_create(ui_light);
-lv_obj_set_height( ui_topPanel2, 30);
-lv_obj_set_width( ui_topPanel2, lv_pct(100));
-lv_obj_set_align( ui_topPanel2, LV_ALIGN_TOP_MID );
-lv_obj_set_flex_flow(ui_topPanel2,LV_FLEX_FLOW_ROW);
-lv_obj_set_flex_align(ui_topPanel2, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-lv_obj_clear_flag( ui_topPanel2, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+    ui_topPanel2 = lv_obj_create(ui_light);
+    lv_obj_set_height(ui_topPanel2, 30);
+    lv_obj_set_width(ui_topPanel2, lv_pct(100));
+    lv_obj_set_align(ui_topPanel2, LV_ALIGN_TOP_MID);
+    lv_obj_set_flex_flow(ui_topPanel2, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(ui_topPanel2, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_topPanel2, LV_OBJ_FLAG_SCROLLABLE); /// Flags
 
-ui_btnScreen2 = lv_btn_create(ui_topPanel2);
-lv_obj_set_width( ui_btnScreen2, 100);
-lv_obj_set_height( ui_btnScreen2, LV_SIZE_CONTENT);   /// 0
-lv_obj_set_x( ui_btnScreen2, -142 );
-lv_obj_set_y( ui_btnScreen2, 0 );
-lv_obj_set_align( ui_btnScreen2, LV_ALIGN_CENTER );
-lv_obj_add_flag( ui_btnScreen2, LV_OBJ_FLAG_SCROLL_ON_FOCUS );   /// Flags
-lv_obj_clear_flag( ui_btnScreen2, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+    ui_btnScreen2 = lv_btn_create(ui_topPanel2);
+    lv_obj_set_width(ui_btnScreen2, 100);
+    lv_obj_set_height(ui_btnScreen2, LV_SIZE_CONTENT); /// 0
+    lv_obj_set_x(ui_btnScreen2, -142);
+    lv_obj_set_y(ui_btnScreen2, 0);
+    lv_obj_set_align(ui_btnScreen2, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_btnScreen2, LV_OBJ_FLAG_SCROLL_ON_FOCUS); /// Flags
+    lv_obj_clear_flag(ui_btnScreen2, LV_OBJ_FLAG_SCROLLABLE); /// Flags
 
-ui_Label1 = lv_label_create(ui_btnScreen2);
-lv_obj_set_width( ui_Label1, LV_SIZE_CONTENT);  /// 1
-lv_obj_set_height( ui_Label1, LV_SIZE_CONTENT);   /// 1
-lv_obj_set_align( ui_Label1, LV_ALIGN_CENTER );
-lv_label_set_text(ui_Label1,"Intercooler");
+    ui_Label1 = lv_label_create(ui_btnScreen2);
+    lv_obj_set_width(ui_Label1, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_height(ui_Label1, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_align(ui_Label1, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_Label1, "Intercooler");
 
-ui_btnScreen4 = lv_btn_create(ui_topPanel2);
-lv_obj_set_width( ui_btnScreen4, 100);
-lv_obj_set_height( ui_btnScreen4, LV_SIZE_CONTENT);   /// 0
-lv_obj_set_x( ui_btnScreen4, -142 );
-lv_obj_set_y( ui_btnScreen4, 0 );
-lv_obj_set_align( ui_btnScreen4, LV_ALIGN_CENTER );
-lv_obj_add_flag( ui_btnScreen4, LV_OBJ_FLAG_SCROLL_ON_FOCUS );   /// Flags
-lv_obj_clear_flag( ui_btnScreen4, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+    ui_btnScreen4 = lv_btn_create(ui_topPanel2);
+    lv_obj_set_width(ui_btnScreen4, 100);
+    lv_obj_set_height(ui_btnScreen4, LV_SIZE_CONTENT); /// 0
+    lv_obj_set_x(ui_btnScreen4, -142);
+    lv_obj_set_y(ui_btnScreen4, 0);
+    lv_obj_set_align(ui_btnScreen4, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_btnScreen4, LV_OBJ_FLAG_SCROLL_ON_FOCUS); /// Flags
+    lv_obj_clear_flag(ui_btnScreen4, LV_OBJ_FLAG_SCROLLABLE); /// Flags
 
-ui_Label3 = lv_label_create(ui_btnScreen4);
-lv_obj_set_width( ui_Label3, LV_SIZE_CONTENT);  /// 1
-lv_obj_set_height( ui_Label3, LV_SIZE_CONTENT);   /// 1
-lv_obj_set_align( ui_Label3, LV_ALIGN_CENTER );
-lv_label_set_text(ui_Label3,"Light");
+    ui_Label3 = lv_label_create(ui_btnScreen4);
+    lv_obj_set_width(ui_Label3, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_height(ui_Label3, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_align(ui_Label3, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_Label3, "Light");
 
-ui_swFrontLeft = lv_switch_create(ui_light);
-lv_obj_set_width( ui_swFrontLeft, 100);
-lv_obj_set_height( ui_swFrontLeft, 50);
-lv_obj_set_x( ui_swFrontLeft, -125 );
-lv_obj_set_y( ui_swFrontLeft, -50 );
-lv_obj_set_align( ui_swFrontLeft, LV_ALIGN_CENTER );
-lv_obj_set_style_anim_time(ui_swFrontLeft, 500, LV_PART_MAIN| LV_STATE_DEFAULT);
+    ui_swFrontLeft = lv_switch_create(ui_light);
+    lv_obj_set_width(ui_swFrontLeft, 100);
+    lv_obj_set_height(ui_swFrontLeft, 50);
+    lv_obj_set_x(ui_swFrontLeft, -125);
+    lv_obj_set_y(ui_swFrontLeft, -50);
+    lv_obj_set_align(ui_swFrontLeft, LV_ALIGN_CENTER);
+    lv_obj_set_style_anim_time(ui_swFrontLeft, 100, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-ui_swFrontRight = lv_switch_create(ui_light);
-lv_obj_set_width( ui_swFrontRight, 100);
-lv_obj_set_height( ui_swFrontRight, 50);
-lv_obj_set_x( ui_swFrontRight, 125 );
-lv_obj_set_y( ui_swFrontRight, -50 );
-lv_obj_set_align( ui_swFrontRight, LV_ALIGN_CENTER );
+    ui_swFrontRight = lv_switch_create(ui_light);
+    lv_obj_set_width(ui_swFrontRight, 100);
+    lv_obj_set_height(ui_swFrontRight, 50);
+    lv_obj_set_x(ui_swFrontRight, 125);
+    lv_obj_set_y(ui_swFrontRight, -50);
+    lv_obj_set_align(ui_swFrontRight, LV_ALIGN_CENTER);
+    lv_obj_set_style_anim_time(ui_swFrontRight, 100, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-ui_swHeadLeft = lv_switch_create(ui_light);
-lv_obj_set_width( ui_swHeadLeft, 100);
-lv_obj_set_height( ui_swHeadLeft, 50);
-lv_obj_set_x( ui_swHeadLeft, -125 );
-lv_obj_set_y( ui_swHeadLeft, 50 );
-lv_obj_set_align( ui_swHeadLeft, LV_ALIGN_CENTER );
+    ui_swHeadLeft = lv_switch_create(ui_light);
+    lv_obj_set_width(ui_swHeadLeft, 100);
+    lv_obj_set_height(ui_swHeadLeft, 50);
+    lv_obj_set_x(ui_swHeadLeft, -125);
+    lv_obj_set_y(ui_swHeadLeft, 50);
+    lv_obj_set_align(ui_swHeadLeft, LV_ALIGN_CENTER);
+    lv_obj_set_style_anim_time(ui_swHeadLeft, 100, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-ui_swHeadRight = lv_switch_create(ui_light);
-lv_obj_set_width( ui_swHeadRight, 100);
-lv_obj_set_height( ui_swHeadRight, 50);
-lv_obj_set_x( ui_swHeadRight, 125 );
-lv_obj_set_y( ui_swHeadRight, 50 );
-lv_obj_set_align( ui_swHeadRight, LV_ALIGN_CENTER );
 
-ui_swSyncOn = lv_switch_create(ui_light);
-lv_obj_set_width( ui_swSyncOn, 50);
-lv_obj_set_height( ui_swSyncOn, 25);
-lv_obj_set_align( ui_swSyncOn, LV_ALIGN_CENTER );
-lv_obj_add_state( ui_swSyncOn, LV_STATE_CHECKED );     /// States
+    ui_swHeadRight = lv_switch_create(ui_light);
+    lv_obj_set_width(ui_swHeadRight, 100);
+    lv_obj_set_height(ui_swHeadRight, 50);
+    lv_obj_set_x(ui_swHeadRight, 125);
+    lv_obj_set_y(ui_swHeadRight, 50);
+    lv_obj_set_align(ui_swHeadRight, LV_ALIGN_CENTER);
+    lv_obj_set_style_anim_time(ui_swHeadRight, 100, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-lv_obj_add_event_cb(ui_btnScreen2, ui_event_btnScreen2, LV_EVENT_ALL, NULL);
-lv_obj_add_event_cb(ui_btnScreen4, ui_event_btnScreen4, LV_EVENT_ALL, NULL);
+    ui_swSyncOn = lv_switch_create(ui_light);
+    lv_obj_set_width(ui_swSyncOn, 50);
+    lv_obj_set_height(ui_swSyncOn, 25);
+    lv_obj_set_align(ui_swSyncOn, LV_ALIGN_CENTER);
+    lv_obj_add_state(ui_swSyncOn, LV_STATE_CHECKED); /// States
 
+    lv_obj_add_event_cb(ui_btnScreen2, ui_event_btnScreen2, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_btnScreen4, ui_event_btnScreen4, LV_EVENT_ALL, NULL);
 }
 
-void ui_light_screen_destroy(void)
-{
-   if (ui_light) lv_obj_del(ui_light);
+void ui_light_screen_destroy(void) {
+    if (ui_light) lv_obj_del(ui_light);
 
-// NULL screen variables
-ui_light= NULL;
-ui_topPanel2= NULL;
-ui_btnScreen2= NULL;
-ui_Label1= NULL;
-ui_btnScreen4= NULL;
-ui_Label3= NULL;
-ui_swFrontLeft= NULL;
-ui_swFrontRight= NULL;
-ui_swHeadLeft= NULL;
-ui_swHeadRight= NULL;
-ui_swSyncOn= NULL;
-
+    // NULL screen variables
+    ui_light = NULL;
+    ui_topPanel2 = NULL;
+    ui_btnScreen2 = NULL;
+    ui_Label1 = NULL;
+    ui_btnScreen4 = NULL;
+    ui_Label3 = NULL;
+    ui_swFrontLeft = NULL;
+    ui_swFrontRight = NULL;
+    ui_swHeadLeft = NULL;
+    ui_swHeadRight = NULL;
+    ui_swSyncOn = NULL;
 }

@@ -5,6 +5,7 @@
 #pragma once
 
 #include <lvgl.h>
+#include "data.h"
 
 void turnOnSync(lv_event_t *e, lv_obj_t *ui_sw);
 
@@ -17,3 +18,9 @@ void turnOnFrontLeft(lv_event_t *e);
 void turnOnHeadRight(lv_event_t *e);
 
 void turnOnHeadLeft(lv_event_t *e);
+
+bool isSwitchChecked(const lv_obj_t *obj);
+
+bool isSwitchUpdated(const lv_obj_t *obj, bool curState);
+
+LightSwitch getLightSwitch();

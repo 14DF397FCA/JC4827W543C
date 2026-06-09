@@ -54,15 +54,19 @@ void SetupEspNow() {
 }
 
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
-    Serial.print("Packet sent to: ");
-    for (int i = 0; i < 6; i++) {
-        Serial.print(mac_addr[i], HEX);
-        if (i < 5)
-            Serial.print(":");
-    }
+    if (verbose) {
+        Serial.print("Packet sent to: ");
+        for (int i = 0; i < 6; i++) {
+            Serial.print(mac_addr[i], HEX);
+            if (i < 5)
+                Serial.print(":");
+        }
 
-    Serial.printf(" at %d | Status: ", millis());
-    Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Success ✓" : "Fail ✗");
+        Serial.printf(" at %d | Status: ", millis());
+        Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Success ✓" : "Fail ✗");
+    } else {
+        Serial.printf("Packet sent at %d: %s\n", millis(), status == ESP_NOW_SEND_SUCCESS ? "Success ✓" : "Fail ✗");
+    }
 }
 
 void OnDataRecv(const esp_now_recv_info_t *recv_info, const uint8_t *data, int data_len) {
@@ -82,7 +86,6 @@ void OnDataRecv(const esp_now_recv_info_t *recv_info, const uint8_t *data, int d
 }
 
 esp_err_t espSend(LightSwitch data) {
-    Serial.println("Sending data");
     return esp_now_send(broadcastAddress,
                         (uint8_t *) &data,
                         sizeof(data));
