@@ -6,7 +6,8 @@
 #include <lvgl.h>
 #include "display.h"
 #include "touch.h"
-#include "callbacks.h"
+#include "intercoller.h"
+#include "lights.h"
 #include "ui/ui.h"
 #include "espnow.h"
 #include "data.h"
