@@ -8,7 +8,7 @@
 #include "ui/ui.h"
 #include "data.h"
 
-lv_color_t getColorByValue(int16_t value) {
+lv_color_t getColorByTemperature(int8_t value) {
     if (value < -20) {
         return lv_color_hex(0x281C59);
     } else if (value < 0) {
@@ -33,39 +33,81 @@ void ui_timer_cb(lv_timer_t *timer) {
     updateCoolantOut(intercooler.coolantOut);
 }
 
-void updateAirIn(int16_t value) {
+void updateBar(lv_obj_t *uiBar, lv_obj_t *uiLabel, const int8_t v) {
     char buf[32];
-    snprintf(buf, sizeof(buf), "%d", value);
-    lv_label_set_text(ui_lblAirIn, buf);
-    lv_color_t color = getColorByValue(value);
-    lv_obj_set_style_text_color(ui_lblAirIn, color, LV_PART_MAIN);
+    snprintf(buf, sizeof(buf), "%d", v);
+    lv_label_set_text(uiLabel, buf);
+    lv_color_t color = getColorByTemperature(v);
+    lv_obj_set_style_text_color(uiLabel, color, LV_PART_MAIN);
 
-    lv_bar_set_value(ui_brAirIn, value, LV_ANIM_ON);
+    lv_bar_set_value(uiBar, v, LV_ANIM_ON);
 }
 
-void updateAirOut(int16_t value) {
-    char buf[32];
-    snprintf(buf, sizeof(buf), "%d", value);
-    lv_label_set_text(ui_lblAirOut, buf);
-    lv_color_t color = getColorByValue(value);
-    lv_obj_set_style_text_color(ui_lblAirOut, color, LV_PART_MAIN);
-    lv_bar_set_value(ui_brAirOut, value, LV_ANIM_ON);
+void updateAirIn(int8_t value) {
+    updateBar(ui_brAirIn, ui_lblAirIn, value);
 }
 
-void updateCoolantIn(int16_t value) {
-    char buf[32];
-    snprintf(buf, sizeof(buf), "%d", value);
-    lv_label_set_text(ui_lblCoolantIn, buf);
-    lv_color_t color = getColorByValue(value);
-    lv_obj_set_style_text_color(ui_lblCoolantIn, color, LV_PART_MAIN);
-    lv_bar_set_value(ui_brCoolantIn, value, LV_ANIM_ON);
+void updateAirOut(int8_t value) {
+    updateBar(ui_brAirOut, ui_lblAirOut, value);
 }
 
-void updateCoolantOut(int16_t value) {
-    char buf[32];
-    snprintf(buf, sizeof(buf), "%d", value);
-    lv_label_set_text(ui_lblCoolantOut, buf);
-    lv_color_t color = getColorByValue(value);
-    lv_obj_set_style_text_color(ui_lblCoolantOut, color, LV_PART_MAIN);
-    lv_bar_set_value(ui_brCoolantOut, value, LV_ANIM_ON);
+void updateCoolantIn(int8_t value) {
+    updateBar(ui_brCoolantIn, ui_lblCoolantIn, value);
+}
+
+void updateCoolantOut(int8_t value) {
+    updateBar(ui_brCoolantOut, ui_lblCoolantOut, value);
+}
+
+void turnOnSync(lv_event_t *e, lv_obj_t *ui_sw) {
+    if (lv_obj_has_state(ui_swSyncOn, LV_STATE_CHECKED)) {
+        lv_obj_t *sw = lv_event_get_target(e);
+        if (lv_obj_has_state(sw, LV_STATE_CHECKED)) {
+            lv_obj_add_state(ui_sw, LV_STATE_CHECKED);
+        } else {
+            lv_obj_clear_state(ui_sw, LV_STATE_CHECKED);
+        }
+    }
+}
+
+void swStateToSerial(bool swState, const String swName) {
+    if (verbose) {
+        if (swState) {
+            Serial.printf("%s ON\n", swName.c_str());
+        } else {
+            Serial.printf("%s OFF\n", swName.c_str());
+        }
+    }
+}
+
+void turnOnFrontRight(lv_event_t *e) {
+    turnOnSync(e, ui_swFrontLeft);
+    bool state = lv_obj_has_state(ui_swFrontRight, LV_STATE_CHECKED);
+    swStateToSerial(state, "Front Right");
+    lightSwitch.frontRight = state;
+    lightSwitch.updated = true;
+}
+
+void turnOnFrontLeft(lv_event_t *e) {
+    turnOnSync(e, ui_swFrontRight);
+    bool state = lv_obj_has_state(ui_swFrontRight, LV_STATE_CHECKED);
+    swStateToSerial(state, "Front Left");
+    lightSwitch.frontLeft = state;
+    lightSwitch.updated = true;
+}
+
+void turnOnHeadRight(lv_event_t *e) {
+    turnOnSync(e, ui_swHeadLeft);
+    bool state = lv_obj_has_state(ui_swHeadRight, LV_STATE_CHECKED);
+    swStateToSerial(state, "Head Right");
+    lightSwitch.headRight = state;
+    lightSwitch.updated = true;
+}
+
+void turnOnHeadLeft(lv_event_t *e) {
+    turnOnSync(e, ui_swHeadRight);
+    bool state = lv_obj_has_state(ui_swHeadLeft, LV_STATE_CHECKED);
+    swStateToSerial(state, "Head Left");
+    lightSwitch.headLeft = state;
+    lightSwitch.updated = true;
 }

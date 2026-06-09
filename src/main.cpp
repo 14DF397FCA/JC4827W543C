@@ -19,10 +19,12 @@ static lv_disp_draw_buf_t draw_buf;
 static lv_disp_drv_t disp_drv;
 static lv_indev_drv_t indev_drv;
 
-intercoolerTemp intercooler;
-const bool verbose = false;
+IntercoolerTemp intercooler;
+LightSwitch lightSwitch;
+const bool verbose = true;
 
 constexpr uint8_t updateInterval = 100;
+uint32_t lastUpdate = 0;
 
 void setup() {
     Serial.begin(115200);
@@ -54,17 +56,31 @@ void setup() {
     Serial.println("UI ready");
 
     lv_timer_create(ui_timer_cb, updateInterval, NULL);
+    lv_obj_add_event_cb(ui_swFrontLeft, turnOnFrontLeft, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(ui_swFrontRight, turnOnFrontRight, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(ui_swHeadLeft, turnOnHeadLeft, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(ui_swHeadRight, turnOnHeadRight, LV_EVENT_VALUE_CHANGED, NULL);
 
     SetupEspNow();
 }
 
 void loop() {
     lv_timer_handler();
-    delay(5);
-    if (verbose) {
-        Serial.printf("Air In: %d\n", intercooler.airIn);
-        Serial.printf("Air Out: %d\n", intercooler.airOut);
-        Serial.printf("Coolant In: %d\n", intercooler.coolantIn);
-        Serial.printf("Coolant Out: %d\n", intercooler.coolantOut);
+
+    if (millis() - lastUpdate >= updateInterval) {
+        if (lightSwitch.updated) {
+            Serial.println("Light Switch Updated");
+            espSend(lightSwitch);
+            lightSwitch.updated = false;
+            lastUpdate = millis();
+        }
     }
+
+    delay(5);
+    // if (verbose) {
+    //     Serial.printf("Air In: %d\n", intercooler.airIn);
+    //     Serial.printf("Air Out: %d\n", intercooler.airOut);
+    //     Serial.printf("Coolant In: %d\n", intercooler.coolantIn);
+    //     Serial.printf("Coolant Out: %d\n", intercooler.coolantOut);
+    // }
 }

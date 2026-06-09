@@ -1,6 +1,7 @@
 SET(SOURCES ui_comp_toppanel1.c
     ui_comp.c
-    ui_Screen1.c
+    ui_intercoller.c
+    ui_light.c
     ui.c
     ui_comp_hook.c
     ui_helpers.c

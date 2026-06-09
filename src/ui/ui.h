@@ -28,7 +28,8 @@ extern "C" {
 #include "ui_events.h"
 
 ///////////////////// SCREENS ////////////////////
-#include "ui_Screen1.h"
+#include "ui_intercoller.h"
+#include "ui_light.h"
 
 ///////////////////// VARIABLES ////////////////////
 

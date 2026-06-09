@@ -3,21 +3,24 @@
 // LVGL version: 8.3.11
 // Project name: intercooler
 
-#ifndef UI_SCREEN1_H
-#define UI_SCREEN1_H
+#ifndef UI_INTERCOLLER_H
+#define UI_INTERCOLLER_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// SCREEN: ui_Screen1
-extern void ui_Screen1_screen_init(void);
-extern void ui_Screen1_screen_destroy(void);
-extern lv_obj_t *ui_Screen1;
+// SCREEN: ui_intercoller
+extern void ui_intercoller_screen_init(void);
+extern void ui_intercoller_screen_destroy(void);
+extern lv_obj_t *ui_intercoller;
 extern lv_obj_t *ui_topPanel1;
 extern void ui_event_btnScreen1( lv_event_t * e);
 extern lv_obj_t *ui_btnScreen1;
 extern lv_obj_t *ui_Label5;
+extern void ui_event_btnScreen3( lv_event_t * e);
+extern lv_obj_t *ui_btnScreen3;
+extern lv_obj_t *ui_Label2;
 extern lv_obj_t *ui_Image1;
 extern lv_obj_t *ui_Image2;
 extern lv_obj_t *ui_lblCoolantIn;
